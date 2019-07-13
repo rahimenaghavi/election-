@@ -1,0 +1,95 @@
+version: "3.6"
+services:
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+      - "8020:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  electionmanager:
+    image: ardalanfp/fum_election_electionmanager
+    ports:
+      - "8021:8080"    
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 30s
+      restart_policy:
+        condition: on-failure    
+    #container_name: election_manager
+  electionportal:
+    image: ardalanfp/fum_election_electionportal
+    ports:
+      - "8022:8090"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 30s
+      restart_policy:
+        condition: on-failure   
+  
+    # container_name: electionportal
+  electionManagerDb:
+    image: ardalanfp/election_manager_db
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+    
+      #     memory: 200M                
+    # container_name: electionManagerDb
+  electionPortalDb:
+    image: ardalanfp/election_portal_db
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure
+        
+    # container_name: electionPortalDb
+  auth:
+    image: sayid/auth
+    ports:
+      - "8023:2000"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure           
+    # container_name: auth
+  election_ui:
+    image: sayid/election_ui
+    ports:
+      - "8024:9090"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 20s
+      restart_policy:
+        condition: on-failure
+        
+    # container_name: electionui
+  mongo:
+    image: mongo
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 5s
+      restart_policy:
+        condition: on-failure 
+
+    # container_name: mongo
