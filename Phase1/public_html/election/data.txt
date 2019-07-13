@@ -1,0 +1,42 @@
+// create_election
+
+{
+    "title": "election4",
+    "start_time": "2014-01-01 00:00:00",
+    "end_time": "2014-01-02 00:00:00",
+    "list_of_choices": [
+        "mansore",
+        "masome",
+        "tayebe"
+    ],
+    "number_of_votes": "400"
+}
+
+
+// edit_election
+
+{
+    "id": "4",
+    "title": "election4",
+    "start_time": "2014-01-01 00:00:00",
+    "end_time": "2014-01-02 00:00:00",
+    "list_of_choices": [
+        "mansore",
+        "masome",
+        "tayebe",
+        "fatemeh"
+    ],
+    "number_of_votes": "400"
+}
+
+
+//remove_election & Increament_number_of_votes & get_list_of_choices & election_exists & get_election_detail
+
+{
+    "id" : "4"
+}
+
+
+//get_all_elections
+
+without data
